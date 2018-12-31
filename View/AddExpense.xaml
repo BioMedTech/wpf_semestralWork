@@ -1,0 +1,43 @@
+﻿<Window x:Class="Expence_Tracker.View.AddExpense"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Expence_Tracker.ViewModel"
+        xmlns:local="clr-namespace:Expence_Tracker.View"
+        mc:Ignorable="d"
+        Title="AddExpense" Height="400" Width="300">
+    <Window.Resources>
+        <vm:ExpenseTrackerVM x:Key="vm"/>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource vm}">
+        <StackPanel>
+            <Label Grid.Column="0" Grid.Row="0" Margin="22,0,0.333,0">Category</Label>
+            <ComboBox Width="250px" Margin="5,5,5.333,5" VerticalAlignment="Top" SelectedIndex="0" ItemsSource="{Binding Categories}" SelectedItem="{Binding Path=Current_Expence.Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Path=Icon}" Width="20" Height="20" RenderTransformOrigin="0.5 0.5"/>
+                            <TextBlock Margin="5px 0" HorizontalAlignment="Center" Text="{Binding Path=Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Margin="22,0,0.333,0">Name</Label>
+            <TextBox Width="250px" Text="{Binding Path=Current_Expence.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label Margin="22,0,0.333,0">Price</Label>
+            <TextBox Width="250px" Text="{Binding Path=Current_Expence.Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label Margin="22,0,0.333,0" >Quantity</Label>
+            <TextBox Width="250px" Text="{Binding Path=Current_Expence.Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+
+            <Label Margin="22,0,0.333,0" Height="31">Choose a location</Label>
+            <TextBox Width="250" Text="{Binding Path=Current_Expence.Place, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Button Background="Transparent" BorderBrush="Transparent"  Margin="74,9,58.333,0" Height="32">Or add location manualy</Button>
+            <Button Height="25" Margin="110,10,90.333,0" RenderTransformOrigin="0.503,0.798">Done!
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

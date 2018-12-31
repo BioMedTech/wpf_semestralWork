@@ -1,0 +1,45 @@
+﻿<Window x:Class="Expence_Tracker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Expence_Tracker.ViewModel"
+        xmlns:local="clr-namespace:Expence_Tracker"
+        
+        mc:Ignorable="d"
+        Title="MainWindow" Height="420" Width="280">
+    <Window.Resources>
+        <vm:LoginVM x:Key="vm"/>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource vm}">
+        <StackPanel Background="#2240FF" Margin="0,0,0.333,-0.333">
+            <Image Source="../Images/Dog_50px.png" Height="20" Margin="0,8px,0,0" RenderTransformOrigin="0.505,1.07"/>
+            <Label HorizontalAlignment="Center" FontWeight="Bold" Foreground="White" Content="Doggie" RenderTransformOrigin="0.595,-9.335" Margin="111,0,111.333,0"/>
+            
+        <StackPanel x:Name="loginStackPanel">
+            <Label Margin="37,40,36.333,0" Foreground="White"  Content="Username" RenderTransformOrigin="0.491,-12.026"/>
+            <TextBox Text="{Binding Path=User.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Padding="2px" BorderBrush="Transparent"/>
+            <Label Margin="37,10,36.333,0" Foreground="White" Content="Password"/>
+            <TextBox Text="{Binding Path=User.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Padding="2px" BorderBrush="Transparent"/>
+            <Button Command="{Binding LoginCommand}"
+                    CommandParameter="{Binding User}"
+                    Content="Log in" Background="Transparent" BorderBrush="White" Width="80px" Margin="0 70px 0 0" Foreground="White" Padding="10px 5px"/>
+            <Button Click="register_Click" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center" Foreground="White" Margin="0 30px 0 0" Content="Create account"/>
+        </StackPanel>
+
+        <StackPanel Visibility="Collapsed" x:Name="registerStackPanel">
+            <Label Margin="37,30,36.333,0" Foreground="White"  Content="Username" RenderTransformOrigin="0.491,-12.026"/>
+            <TextBox Text="{Binding Path=User.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Padding="2px" BorderBrush="Transparent"/>
+            <Label Margin="37,5,0.333,0" Foreground="White"  Content="Email" RenderTransformOrigin="0.491,-12.026"/>
+            <TextBox Width="200" Text="{Binding Path=User.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="2px" BorderBrush="Transparent"></TextBox>
+            <Label Margin="37,5,36.333,0" Foreground="White" Content="Password"/>
+                <TextBox Width="200" Text="{Binding Path=User.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="2px" BorderBrush="Transparent"/>
+                <Button Background="Transparent" Command="{Binding RegisterCommand}"
+                    CommandParameter="{Binding User}"
+                    Content="Register" BorderBrush="White" Width="80px" Margin="0 40px 0 0" Foreground="White" Padding="10px 5px"/>
+            <Button Background="Transparent" Click="login_Click" BorderBrush="Transparent" HorizontalAlignment="Center" Foreground="White" Margin="0 30px 0 0" Content="Log in"/>
+        </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

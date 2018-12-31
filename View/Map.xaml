@@ -1,0 +1,13 @@
+﻿<Window x:Class="Expence_Tracker.View.Map"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Expence_Tracker.View"
+       xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        mc:Ignorable="d"
+        Title="Map" Height="300" Width="500">
+    <Grid>
+        <m:Map x:Name="myMap" CredentialsProvider="zjnuIVHZIbuNDov6owIn~aFra-ZF086kr0EaRmCbO2Q~Ap54C50CrDGSNmD53S8rdjMHWuNosLeSjnvS7WYZ5FHQmCqW7_cZa2dWCF8kRooD" Mode="Road"/>
+    </Grid>
+</Window>
