@@ -1,4 +1,5 @@
 ﻿using Expence_Tracker.Model;
+using Expence_Tracker.ViewModel.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,17 +17,22 @@ namespace Expence_Tracker.ViewModel
         public ObservableCollection<Expense> Expenses { get; set; }
         public ObservableCollection<Category> Categories { get; set; }
         public ObservableCollection<BitmapImage> Icons { get; set; }
+        public Category NewCategory;
 
         public AddExpanceCommand AddExpanceCommand { get; set; }
+        public AddCategoryCommand AddCategoryCommand { get; set; }
         public Expense Current_Expence;
 
         string[] icons = Directory.GetFiles(@"../../Icons/", "*.png");
-       
 
+       
+        public int Cols = 12;
+        public int Rows;
         public ExpenseTrackerVM()
         {
             Expenses = new ObservableCollection<Expense>();
             Current_Expence = new Expense();
+            NewCategory = new Category();
 
             Icons = new ObservableCollection<BitmapImage>();
 
@@ -34,7 +40,7 @@ namespace Expence_Tracker.ViewModel
             {
                 Icons.Add(new BitmapImage(new Uri(@path.Substring(3), UriKind.Relative)));
             }
-            
+            Rows=Icons.Count / Cols;
             Categories = new ObservableCollection<Category> {
                 new Category() {
                     Name ="Food",
@@ -70,11 +76,17 @@ namespace Expence_Tracker.ViewModel
                 }
             };
             AddExpanceCommand = new AddExpanceCommand(this);
+            AddCategoryCommand = new AddCategoryCommand(this);
         }
 
         public void AddExpence()
         {
             Expenses.Add(new Expense());
+        }
+
+        public void AddCategory()
+        {
+            Categories.Add(NewCategory);
         }
 
         //public void ReadDatabase()

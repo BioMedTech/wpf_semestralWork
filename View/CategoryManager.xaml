@@ -12,28 +12,32 @@
         <vm:ExpenseTrackerVM x:Key="vm"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource vm}">
-        <StackPanel>
+        <StackPanel Panel.ZIndex="4" Background="White" Margin="0,0,20,360">
             <Label Margin="10,0,0.333,0">Name of category</Label>
-            <TextBox Margin="10,0,374.333,0" Height="17"></TextBox>
+            <Grid>
+            <TextBox Text="{Binding Path=NewCategory.Name}" Margin="10,0,147.333,0"/>
+                <Button Margin="329,0,27.333,0" Content="Add" Command="{Binding AddCategoryCommand}"  CommandParameter="{Binding NewCategory}"></Button>
+            </Grid>
         </StackPanel>
+        <ScrollViewer>
         <StackPanel Margin="0,61,0.333,-0.333">
             <Label Height="25" Margin="10,0,0.333,0">Category Image</Label>
-            <ItemsControl ItemsSource="{Binding Path=Icons}" Height="783" Margin="10,0,10.333,0">
-                <!--<ScrollViewer></ScrollViewer>-->
-                <ItemsControl.ItemsPanel>
+                <ItemsControl ItemsSource="{Binding Path=Icons}" Height="auto" Margin="10,0,10.333,0">
+                    <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Rows="20" Columns="12"/>
+                        <UniformGrid Rows="{Binding Path=Rows}" Columns="12"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Background="White">
-                                <Image Source="{Binding}" />
-                            </Button>
+                        <ToggleButton Background="White" Checked="ToggleButton_Checked">
+                            <Image Height="30" Width="30" Source="{Binding}" />
+                        </ToggleButton>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

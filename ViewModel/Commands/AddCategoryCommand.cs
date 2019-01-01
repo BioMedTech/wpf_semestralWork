@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Expence_Tracker.ViewModel
+namespace Expence_Tracker.ViewModel.Commands
 {
-    public class AddExpanceCommand : ICommand
+    public class AddCategoryCommand : ICommand
     {
         public ExpenseTrackerVM VM { get; set; }
         public event EventHandler CanExecuteChanged;
 
-        public AddExpanceCommand(ExpenseTrackerVM vm)
+        public AddCategoryCommand(ExpenseTrackerVM vm)
         {
             VM = vm;
         }
@@ -24,7 +24,7 @@ namespace Expence_Tracker.ViewModel
 
         public void Execute(object parameter)
         {
-            VM.AddCategory();
+            //VM.GetWeather();
         }
     }
 }
