@@ -7,26 +7,33 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:vm="clr-namespace:Expence_Tracker.ViewModel"
         mc:Ignorable="d"
-        Title="CategoryManager" Height="450" Width="800">
+        Title="CategoryManager" Height="450" Width="450">
     <Window.Resources>
         <vm:ExpenseTrackerVM x:Key="vm"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource vm}">
-        <ItemsControl ItemsSource="{Binding Path=Icons}">
+        <StackPanel>
+            <Label Margin="10,0,0.333,0">Name of category</Label>
+            <TextBox Margin="10,0,374.333,0" Height="17"></TextBox>
+        </StackPanel>
+        <StackPanel Margin="0,61,0.333,-0.333">
+            <Label Height="25" Margin="10,0,0.333,0">Category Image</Label>
+            <ItemsControl ItemsSource="{Binding Path=Icons}" Height="783" Margin="10,0,10.333,0">
+                <!--<ScrollViewer></ScrollViewer>-->
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="20" Columns="12"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-        <!-- This panel will be used to hold the items -->
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <UniformGrid Rows="10" Columns="10" />
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-
-        <!-- Each item will be drawn using this template -->
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                 <Button Content="{Binding}" Background="{Binding}" />
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Background="White">
+                                <Image Source="{Binding}" />
+                            </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
     </Grid>
 </Window>
