@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Expence_Tracker.View
 {
     /// <summary>
-    /// Логика взаимодействия для AccountSettings.xaml
+    /// Логика взаимодействия для CategoryManager.xaml
     /// </summary>
-    public partial class AccountSettings : Window
+    public partial class CategoryManager : Window
     {
-        public AccountSettings()
+        public CategoryManager()
         {
             InitializeComponent();
         }

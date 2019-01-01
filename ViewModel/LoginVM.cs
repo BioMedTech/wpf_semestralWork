@@ -16,7 +16,10 @@ namespace Expence_Tracker.ViewModel
         public User User
         {
             get { return user; }
-            set { user = value; }
+            set {
+                user = value;
+                Update();
+            }
         }
 
         public RegisterCommand RegisterCommand { get; set; }

@@ -19,30 +19,32 @@
                 <Label HorizontalAlignment="Right" Width="124" Height="26">Jmeno Primeni</Label>
             </StackPanel>
             <StackPanel>
-                <Button Background="Transparent" BorderBrush="White" BorderThickness="0 2px 0 0" Foreground="White" Height="38">My statistics</Button>
+                <Button Click="Open_Statistics" Background="Transparent" BorderBrush="White" BorderThickness="0 2px 0 0" Foreground="White" Height="38">My statistics</Button>
             </StackPanel>
             <StackPanel>
-                <Button Background="Transparent" BorderBrush="White" BorderThickness="0 2px 0 0" Foreground="White" Height="38">Manage expenses</Button>
+                <Button Click="Open_ExpenceManager" Background="Transparent" BorderBrush="White" BorderThickness="0 2px 0 0" Foreground="White" Height="38">Manage expenses</Button>
             </StackPanel>
             <StackPanel>
-                <Button Background="Transparent" BorderBrush="White" BorderThickness="0 2px 0 0" Foreground="White" Height="38">Currency</Button>
+                <Button Click="Open_Currency" Background="Transparent" BorderBrush="White" BorderThickness="0 2px 0 0" Foreground="White" Height="38">Currency</Button>
             </StackPanel>
             <StackPanel>
-                <Button Background="Transparent" BorderBrush="White" BorderThickness="0 2px" Foreground="White" Height="38">Settings</Button>
+                <Button Click="Open_Settings" Background="Transparent" BorderBrush="White" BorderThickness="0 2px" Foreground="White" Height="38">Settings</Button>
             </StackPanel>
         </StackPanel>
         <StackPanel Margin="159,0,0.333,-0.333">
-            <StackPanel x:Name="Settings" DataContext="{StaticResource login}">
-                <Label>User settings</Label>
+            <StackPanel x:Name="SettingsPanel" DataContext="{StaticResource login}" Visibility="Collapsed">
+                <Label Height="51" Margin="10,0,0,0" FontSize="25">User settings</Label>
                 <Label Margin="10,0,0,0">Username</Label>
                 <TextBox Text="{Binding Path=User.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,37,0" Height="20"></TextBox>
                 <Label Margin="10,5,0,0">Email</Label>
                 <TextBox Text="{Binding Path=User.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="20" Margin="10,0,37,0"></TextBox>
-                
+
                 <Label Margin="10,5,0,0">Chose color scheme</Label>
                 <xctk:ColorPicker Name="ClrPcker_Background" SelectedColor="{Binding Path=User.ColorScheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="10,0,37,0" ></xctk:ColorPicker>
                 <Label Margin="10,5,0,0">Chose default currency</Label>
-                <ComboBox DataContext="{StaticResource currency}" ItemsSource="{Binding Currencies}" Margin="10,0,37,0">
+                <ComboBox ItemsSource="{Binding Source={StaticResource currency}, Path=FullCurrency}" 
+                          SelectedItem="{Binding Source={StaticResource login}, Path=User.Currency}"
+                          Margin="10,0,37,0">
                     <ComboBox.ItemTemplate >
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -55,9 +57,42 @@
                     <Label Margin="29,5,0,0">Unable Email Notifications</Label>
                     <RadioButton IsChecked="{Binding Path=User.EmailNotifications, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="15,10,582,10"/>
                 </Grid>
+                <Button Click="AddCategory" Width="150" Margin="10,0,0,0" Content="Add new category"></Button>
             </StackPanel>
-            <StackPanel x:Name="Currency">
-
+            <StackPanel x:Name="CurrencyPanel" DataContext="{StaticResource currency}" >
+                <Label Height="51" Margin="10,0,0,0" FontSize="25">Currency converter</Label>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="50px"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="50px"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="280"></ColumnDefinition>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                        <ColumnDefinition Width="280"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Margin="10,0,68.333,0">From</Label>
+                    <ComboBox  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Currencies}" SelectedItem="{Binding Path=Transaction.From, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Margin="10,0,10.333,0"></ComboBox>
+                    <Label Grid.Row="0" Grid.Column="2" Margin="9.667,0,-0.333,0">To</Label>
+                    <ComboBox  Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Currencies}" SelectedItem="{Binding Path=Transaction.To, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Margin="5.333,0,-14,0"></ComboBox>
+                    <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom" Margin="10,0,0.333,0">Amount</Label>
+                    <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding Path=Transaction.Amount, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="10,0,10.333,0"/>
+                    <Image Source="../Icons/arrow-right.png" Grid.Row="3" Grid.ColumnSpan="3" Margin="281,0"/>
+                    <Label Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" Margin="9.667,0,-0.333,0">Result</Label>
+                    <TextBox Grid.Row="3" VerticalAlignment="Bottom" Grid.Column="2" Text="{Binding Path=Result, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5.333,0,-14,0" IsEnabled="False"/>
+                    <Button  Grid.Row="4" Grid.Column="2" Margin="217.333,29,-14,0" 
+                    Command="{Binding Path=ConvertCommand}"
+                    CommandParameter="{Binding Path=Transaction}">Convert</Button>
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="StatisticsPanel">
+                
+            </StackPanel>
+            <StackPanel x:Name="ExpenceManagerPanel" Visibility="Collapsed">
+                <Button Click="AddExpense">Add expense</Button>
             </StackPanel>
         </StackPanel>
     </Grid>

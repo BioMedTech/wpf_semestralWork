@@ -15,13 +15,13 @@ namespace Expence_Tracker.ViewModel
     {
         public ObservableCollection<Expense> Expenses { get; set; }
         public ObservableCollection<Category> Categories { get; set; }
+        public ObservableCollection<BitmapImage> Icons { get; set; }
 
         public AddExpanceCommand AddExpanceCommand { get; set; }
         public Expense Current_Expence;
 
         string[] icons = Directory.GetFiles(@"../../Icons/", "*.png");
-        ObservableCollection<BitmapImage> Icons;
-        
+       
 
         public ExpenseTrackerVM()
         {
@@ -32,7 +32,7 @@ namespace Expence_Tracker.ViewModel
 
             foreach (var path in icons)
             {
-                Icons.Add(new BitmapImage(new Uri(path, UriKind.Relative)));
+                Icons.Add(new BitmapImage(new Uri(@path.Substring(3), UriKind.Relative)));
             }
             
             Categories = new ObservableCollection<Category> {
@@ -63,6 +63,10 @@ namespace Expence_Tracker.ViewModel
                 new Category() {
                     Name="Presents",
                     Icon=new BitmapImage(new Uri(@"../Icons/gift.png", UriKind.Relative))
+                },
+                new Category() {
+                    Name="Other",
+                    Icon=new BitmapImage(new Uri(@"../Icons/leaf.png", UriKind.Relative))
                 }
             };
             AddExpanceCommand = new AddExpanceCommand(this);

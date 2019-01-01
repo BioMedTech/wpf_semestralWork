@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Expence_Tracker.Model
 {
-    public class Request:INotifyPropertyChanged
+    public class Transaction:INotifyPropertyChanged
     {
        
         private string from;
@@ -74,30 +74,42 @@ namespace Expence_Tracker.Model
 
     }
 
-    class Rate : INotifyPropertyChanged
+    public class Responce : INotifyPropertyChanged
     {
-        private string name;
-        public string Name
+        private Transaction Query;
+
+        public Transaction query
         {
-            get { return name; }
+            get { return Query; }
             set
             {
-                name = value;
-                OnPropertyChanged("Name");
+                Query = value;
+                OnPropertyChanged("query");
             }
         }
 
-        private string rate;
+        private string Result;
 
-        public string Amount
+        public string result
         {
-            get { return rate;  }
+            get { return Result;  }
             set
             {
-                rate = value;
-                OnPropertyChanged("Rate");
+                Result = value;
+                OnPropertyChanged("result");
             }
         }
+        private string Date;
+        public string date
+        {
+            get { return Date;}
+            set
+            {
+                Date = value;
+                OnPropertyChanged("date");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
